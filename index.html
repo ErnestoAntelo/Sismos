@@ -69,6 +69,7 @@ body, html {
     <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACTO</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hide-small" onclick="redirectToSimulador()"><i class="fa fa-cogs"></i> SIMULADOR</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
       <i class="fa fa-search"></i>
     </a>
@@ -78,60 +79,15 @@ body, html {
     <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACTO</a>
-    <a href="#" class="w3-bar-item w3-button">BUSCAR</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button" onclick="redirectToSimulador()">SIMULADOR</a>
   </div>
 </div>
+
 <!-- First Parallax Image with Logo Image -->
 <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
   <div class="w3-display-middle">
     <!-- Reemplaza este span con la etiqueta de imagen -->
     <img src="https://raw.githubusercontent.com/ErnestoAntelo/Sismos/main/image/Transparente%20logo%20final.png" alt="Nombre del Logo" class="w3-image" style="width: auto; max-height: 200px;">
-  </div>
-</div>
-<!-- Container (About Section) -->
-<div class="w3-content w3-container w3-padding-64" id="about">
-  <h3 class="w3-center">SOBRE NOSOTROS</h3>
-  <p class="w3-center"><em>Revolucionando las energías renovables</em></p>  
-  <p>Somos SISMOS y estamos orgullosos de ser innovadores del más alto nivel, utilizando tecnologías de vanguardia para liderar la industria.  
-    A través de un trabajo meticuloso y confiable, nuestro proyecto apunta a ser uno de los principales fabricantes de sistemas basados en piezoelectricidad para 
-    la transformación de energía mecánica en energía eléctrica. Eche un vistazo a nuestro producto y háganos saber si tiene alguna pregunta.</p>
-  <div class="w3-row">
-    <div class="w3-col m6 w3-center w3-padding-large">
-      <p><b><i class="fa fa-user w3-margin-right"></i>ERNESTO ANTELO</b></p><br>
-      <img src="https://static.wixstatic.com/media/6b95d3_22881e5774684f1bb0c386e6ee3b93d8~mv2.png/v1/fill/w_720,h_810,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/Foto%20recortada_edited_edited.png" class="w3-round w3-image w3-opacity w3-hover-opacity-off" alt="Photo of Me" width="500" height="333">
-    </div>
-    <!-- Hide this text on small devices -->
-    <div class="w3-col m6 w3-hide-small w3-padding-large">
-      <p>Graduado como Ingeniero Eléctrico por Tecnun - Universidad de Navarra y actual estudiante del Máster en Innovación Tecnológica de la misma institución, 
-        actualmente lidera un proyecto innovador centrado en la generación de electricidad a través de la energía cinética producida por las pisadas humanas.</p>
-        actualmente lidera un proyecto innovador centrado en la generación de electricidad a través de la energía cinética producida por las pisadas humanas. 
-        Sismos nació como una idea para el programa de emprendimiento Fast Track de Innovation Factory, en el 2021, por un grupo de estudiantes de la Universidad de Navarra, 
-        que en la búsqueda de tratar de solventar los problemas medioambientales actuales decidieron apuntar por innovar en el sector de las energía renovables.</p>
-    </div>
-  </div>
-</div>
-<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">14+</span><br>
-    Partners
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">55+</span><br>
-    Projects Done
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">89+</span><br>
-    Happy Clients
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">150+</span><br>
-    Meetings
-  </div>
-</div>
-<!-- Second Parallax Image with Portfolio Text -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-  <div class="w3-display-middle">
-    <span class="w3-xxlarge w3-text-white w3-wide">PORTFOLIO</span>
   </div>
 </div>
 <!-- Container (Portfolio Section) -->
@@ -175,6 +131,50 @@ body, html {
   <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
     <img id="img01" class="w3-image">
     <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+<!-- Second Parallax Image with Portfolio Text -->
+<div class="bgimg-2 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+    <span class="w3-xxlarge w3-text-white w3-wide">SOBRE NOSOTROS</span>
+  </div>
+</div>
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about"> 
+  <p>Somos SISMOS y estamos orgullosos de ser innovadores del más alto nivel, utilizando tecnologías de vanguardia para liderar la industria.  
+    A través de un trabajo meticuloso y confiable, nuestro proyecto apunta a ser uno de los principales fabricantes de sistemas basados en piezoelectricidad para 
+    la transformación de energía mecánica en energía eléctrica. Eche un vistazo a nuestro producto y háganos saber si tiene alguna pregunta.</p>
+  <div class="w3-row">
+    <div class="w3-col m6 w3-center w3-padding-large">
+      <p><b><i class="fa fa-user w3-margin-right"></i>ERNESTO ANTELO</b></p><br>
+      <img src="https://static.wixstatic.com/media/6b95d3_22881e5774684f1bb0c386e6ee3b93d8~mv2.png/v1/fill/w_720,h_810,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/Foto%20recortada_edited_edited.png" class="w3-round w3-image w3-opacity w3-hover-opacity-off" alt="Photo of Me" width="500" height="333">
+    </div>
+    <!-- Hide this text on small devices -->
+    <div class="w3-col m6 w3-hide-small w3-padding-large">
+      <p>Graduado como Ingeniero Eléctrico por Tecnun - Universidad de Navarra y actual estudiante del Máster en Innovación Tecnológica de la misma institución, 
+        actualmente lidera un proyecto innovador centrado en la generación de electricidad a través de la energía cinética producida por las pisadas humanas.</p>
+        actualmente lidera un proyecto innovador centrado en la generación de electricidad a través de la energía cinética producida por las pisadas humanas. 
+        Sismos nació como una idea para el programa de emprendimiento Fast Track de Innovation Factory, en el 2021, por un grupo de estudiantes de la Universidad de Navarra, 
+        que en la búsqueda de tratar de solventar los problemas medioambientales actuales decidieron apuntar por innovar en el sector de las energía renovables.</p>
+    </div>
+  </div>
+</div>
+<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">14+</span><br>
+    Partners
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">55+</span><br>
+    Projects Done
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">89+</span><br>
+    Happy Clients
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">150+</span><br>
+    Meetings
   </div>
 </div>
 <!-- Third Parallax Image with Portfolio Text -->
@@ -256,6 +256,16 @@ function toggleFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+</script>
+<script>
+  function redirectToSimulador() {
+    // Redirige a la página del simulador
+    window.location.href = 'https://ernestoantelo.github.io/Sismos/simulador/';
+  }
+
+  function toggleFunction() {
+    // Puedes agregar aquí la lógica de tu función toggleFunction() si es necesario
+  }
 </script>
 </body>
 </html>
