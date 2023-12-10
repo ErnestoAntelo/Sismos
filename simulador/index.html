@@ -71,11 +71,11 @@ body, html {
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
-    <a href="#home" class="w3-bar-item w3-button">HOME</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button" onclick="redirectToHome()">HOME</a>
     <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACTO</a>
-	<a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-cogs"></i> SIMULADOR</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hide-small" onclick="redirectToSimulador()"><i class="fa fa-cogs"></i> SIMULADOR</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
       <i class="fa fa-search"></i>
     </a>
@@ -85,7 +85,7 @@ body, html {
     <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACTO</a>
-    <a href="#" class="w3-bar-item w3-button">BUSCAR</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button" onclick="redirectToSimulador()">SIMULADOR</a>
   </div>
 </div>
 <!-- First Parallax Image with Logo Text -->
@@ -272,59 +272,68 @@ function toggleFunction() {
 </script>
 <!-- Script simulador -->
 <script>
-	// Datos de la empresa (podrías configurar esto para ser editado por el usuario también)
-	const potenciaGenWatt = 6; // Potencia generada por paso y baldosa en watts
-	const precioM2 = 875.00; // Precio por metro cuadrado en euros
-	const lifespanAnos = 15; // Vida útil en años
+// Datos de la empresa (podrías configurar esto para ser editado por el usuario también)
+const potenciaGenWatt = 6; // Potencia generada por paso y baldosa en watts
+const precioM2 = 875.00; // Precio por metro cuadrado en euros
+const lifespanAnos = 15; // Vida útil en años
 
-	function calculateSimulator() {
-		// Obtener valores de la entrada del usuario
-		const dailySteps = parseFloat(document.getElementById('daily_steps').value) || 0;
-		const kwhCost = parseFloat(document.getElementById('kwh_cost').value) || 0;
-		const kwhNeed = parseFloat(document.getElementById('kwh_need').value) || 0;
+function calculateSimulator() {
+	// Obtener valores de la entrada del usuario
+	const dailySteps = parseFloat(document.getElementById('daily_steps').value) || 0;
+	const kwhCost = parseFloat(document.getElementById('kwh_cost').value) || 0;
+	const kwhNeed = parseFloat(document.getElementById('kwh_need').value) || 0;
+	
+	// Ocultar los resultados y mostrar "Calculando..."
+	document.getElementById('result').style.display = 'none';
+	document.getElementById('loading').style.display = 'block';
+
+	// Simulación de cálculo (ajusta esto según tus cálculos reales)
+	setTimeout(function () {
+		// Realizar cálculos
+		const dailyGenerationCapacityKWh = dailySteps * potenciaGenWatt / 1000;
+		const precioKwDiaProducto = (precioM2 / (lifespanAnos * 360)) / dailyGenerationCapacityKWh;
+		const factibilidadPrecio = 1 - ((precioKwDiaProducto * kwhNeed * (lifespanAnos * 360)) / (kwhCost * kwhNeed * (lifespanAnos * 360)));
+		const ahorroTotal = (kwhCost * kwhNeed * (lifespanAnos * 360)) - (precioKwDiaProducto * kwhNeed * (lifespanAnos * 360));
 		
-		// Ocultar los resultados y mostrar "Calculando..."
-		document.getElementById('result').style.display = 'none';
-		document.getElementById('loading').style.display = 'block';
+		const costoElectricidadRed = kwhCost * kwhNeed * lifespanAnos * 360;
+		const costoElectricidadProducto = precioKwDiaProducto * kwhNeed * lifespanAnos * 360;
+		
+		const generacionKwhM2 = dailyGenerationCapacityKWh;
+		const metrosCuadradosOptimos = kwhNeed / dailyGenerationCapacityKWh;
 
-		// Simulación de cálculo (ajusta esto según tus cálculos reales)
-		setTimeout(function () {
-			// Realizar cálculos
-			const dailyGenerationCapacityKWh = dailySteps * potenciaGenWatt / 1000;
-			const precioKwDiaProducto = (precioM2 / (lifespanAnos * 360)) / dailyGenerationCapacityKWh;
-			const factibilidadPrecio = 1 - ((precioKwDiaProducto * kwhNeed * (lifespanAnos * 360)) / (kwhCost * kwhNeed * (lifespanAnos * 360)));
-			const ahorroTotal = (kwhCost * kwhNeed * (lifespanAnos * 360)) - (precioKwDiaProducto * kwhNeed * (lifespanAnos * 360));
-			
-			const costoElectricidadRed = kwhCost * kwhNeed * lifespanAnos * 360;
-			const costoElectricidadProducto = precioKwDiaProducto * kwhNeed * lifespanAnos * 360;
-			
-			const generacionKwhM2 = dailyGenerationCapacityKWh;
-			const metrosCuadradosOptimos = kwhNeed / dailyGenerationCapacityKWh;
+		// Actualizar los resultados en el DOM con formato de moneda
+		document.getElementById('factibility-result').textContent = (factibilidadPrecio * 100).toFixed(2) + '%';
+		document.getElementById('savings-result').textContent = ahorroTotal.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+		document.getElementById('electricidad-red-result').textContent = costoElectricidadRed.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+		document.getElementById('electricidad-producto-result').textContent = costoElectricidadProducto.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+		document.getElementById('generacion-kwh-m2-result').textContent = generacionKwhM2.toFixed(2) + ' kWh/m²';
+		document.getElementById('metros-cuadrados-optimos-result').textContent = Math.ceil(metrosCuadradosOptimos) + ' m²';
+		document.getElementById('precio-kw-dia-producto-result').textContent = parseFloat(precioKwDiaProducto).toLocaleString('es-ES', { 
+			style: 'currency', 
+			currency: 'EUR',
+			minimumFractionDigits: 6
+		});
 
-			// Actualizar los resultados en el DOM con formato de moneda
-			document.getElementById('factibility-result').textContent = (factibilidadPrecio * 100).toFixed(2) + '%';
-			document.getElementById('savings-result').textContent = ahorroTotal.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-			document.getElementById('electricidad-red-result').textContent = costoElectricidadRed.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-			document.getElementById('electricidad-producto-result').textContent = costoElectricidadProducto.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-			document.getElementById('generacion-kwh-m2-result').textContent = generacionKwhM2.toFixed(2) + ' kWh/m²';
-			document.getElementById('metros-cuadrados-optimos-result').textContent = Math.ceil(metrosCuadradosOptimos) + ' m²';
-			document.getElementById('precio-kw-dia-producto-result').textContent = parseFloat(precioKwDiaProducto).toLocaleString('es-ES', { 
-				style: 'currency', 
-				currency: 'EUR',
-				minimumFractionDigits: 6
-			});
+		// Mostrar los resultados y ocultar "Calculando..."
+		document.getElementById('result').style.display = 'block';
+		document.getElementById('loading').style.display = 'none';
+	}, 2000); // Simulación de retardo de 2 segundos (ajusta según tu necesidad)
+}
 
-			// Mostrar los resultados y ocultar "Calculando..."
-			document.getElementById('result').style.display = 'block';
-			document.getElementById('loading').style.display = 'none';
-		}, 2000); // Simulación de retardo de 2 segundos (ajusta según tu necesidad)
-	}
+window.onload = function () {
+	// Actualizar valores constantes del producto
+	document.getElementById('precio-m2').textContent = precioM2.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+	document.getElementById('lifespan-anos').textContent = lifespanAnos + ' años';
+}
 
-	window.onload = function () {
-		// Actualizar valores constantes del producto
-		document.getElementById('precio-m2').textContent = precioM2.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-		document.getElementById('lifespan-anos').textContent = lifespanAnos + ' años';
-	};
+  function redirectToSimulador() {
+    // Redirige a la página del simulador
+    window.location.href = 'https://ernestoantelo.github.io/Sismos/simulador/';
+  }
+  function redirectToHome() {
+    // Redirige a la página principal
+    window.location.href = 'https://ernestoantelo.github.io/Sismos';
+  }
 </script>
 
 </body>
