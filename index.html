@@ -24,7 +24,7 @@
 .w3-bar-item:hover,
 .w3-bar-item:focus {
     color: #EFCA2B; /* Cambia 'your_color' por el color que desees */
-}
+}	
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
   height: 100%;
@@ -40,7 +40,7 @@ body, html {
 }
 /* First image (Logo. Full height) */
 .bgimg-1 {
-  background-image: url('https://raw.githubusercontent.com/ErnestoAntelo/Sismos/main/image/Superficie_final.jpg');
+  background-image: url('https://raw.githubusercontent.com/ErnestoAntelo/Sismos/main/image/baldosa_centrada.png');
   min-height: 100%;
 }
 /* Second image (Portfolio) */
@@ -75,7 +75,7 @@ body, html {
     <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACTO</a>
-	<a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-cogs"></i> SIMULADOR</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button w3-hide-small" onclick="redirectToSimulador()"><i class="fa fa-cogs"></i> SIMULADOR</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
       <i class="fa fa-search"></i>
     </a>
@@ -85,7 +85,7 @@ body, html {
     <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">SOBRE SISMOS</a>
     <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
     <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACTO</a>
-    <a href="#" class="w3-bar-item w3-button">BUSCAR</a>
+    <a href="javascript:void(0);" class="w3-bar-item w3-button" onclick="redirectToSimulador()">SIMULADOR</a>
   </div>
 </div>
 <!-- First Parallax Image with Logo Image -->
