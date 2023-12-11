@@ -359,7 +359,7 @@ function calculateSimulator() {
 		document.getElementById('electricidad-red-result').textContent = costoElectricidadRed.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
 		document.getElementById('electricidad-producto-result').textContent = costoElectricidadProducto.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
 		document.getElementById('generacion-kwh-m2-result').textContent = generacionKwhM2.toFixed(2) + ' kWh/m²';
-		document.getElementById('metros-cuadrados-optimos-result').textContent = Math.ceil(metrosCuadradosOptimos) + ' m²';
+		document.getElementById('metros-cuadrados-optimos-result').textContent = Math.ceil(metrosCuadradosOptimos) + 'm²';
 		document.getElementById('precio-kw-dia-producto-result').textContent = parseFloat(precioKwDiaProducto).toLocaleString('es-ES', { 
 			style: 'currency', 
 			currency: 'EUR',
@@ -374,7 +374,7 @@ function calculateSimulator() {
 
 window.onload = function () {
 	// Actualizar valores constantes del producto
-	document.getElementById('precio-m2').textContent = precioM2.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) + 'm²';
+	document.getElementById('precio-m2').textContent = precioM2.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) + '/m²';
 	document.getElementById('lifespan-anos').textContent = lifespanAnos + ' años';
 }
 
