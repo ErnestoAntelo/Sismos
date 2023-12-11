@@ -268,9 +268,14 @@ function toggleFunction() {
     window.location.href = 'https://ernestoantelo.github.io/Sismos/simulador/';
   }
 
-  function toggleFunction() {
-    // Puedes agregar aquí la lógica de tu función toggleFunction() si es necesario
-  }
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
 
   function redirectToHome() {
     // Redirige a la página principal
