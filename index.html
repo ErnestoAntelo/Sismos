@@ -96,40 +96,21 @@ body, html {
   </div>
 </div>
 <!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-64" id="portfolio">
-  <h3 class="w3-center">PROYECTOS ACTUALMENTE INSTALADOS</h3>
-  <p class="w3-center"><em>Estas son las ubicaciones donde Sismos se encuentra en funcionamiento.<br> Click en las imágenes para hacerlas mas grandes</em></p><br>
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 1">
+<div class="w3-content w3-container w3-padding-64 w3-center" id="portfolio">
+  <h3>PROYECTOS ACTUALMENTE INSTALADOS</h3>
+  <p><em>Estas son las ubicaciones donde Sismos se encuentra en funcionamiento.</em></p>
+  
+  <!-- Contenedor centrado para la imagen y el enlace -->
+  <div style="width: 50%; margin: 0 auto;">
+    <a href="https://www.google.com" style="text-decoration: none; display: block;">
+      <img src="https://raw.githubusercontent.com/ErnestoAntelo/Sismos/main/image/transport.png" style="width:50%;" alt="Proyecto 1">
+    </a>
+    <div style="text-align: center; margin-top: 10px;">
+      <p style="color: #000;">Intercambiador Avenida América</p>
     </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 2">
-    </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 3">
-    </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 4">
-    </div>
-  </div>
-  <div class="w3-row-padding w3-center w3-section">
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 5">
-    </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 6">
-    </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 7">
-    </div>
-    <div class="w3-col m3">
-      <img src="https://static.wixstatic.com/media/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png/v1/fill/w_843,h_638,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/6b95d3_524d4acfab244a9b90e2cff85aa86414~mv2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Proyecto 8">
-    </div>
-    <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">CARGAR MAS</button>
   </div>
 </div>
+
 <!-- Modal for full size images on click-->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
   <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
