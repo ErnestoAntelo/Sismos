@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Añadir Chart.js -->
+
 <style>
     /* Color del texto de la barra de navegación */
     .w3-bar-item,
@@ -39,7 +42,7 @@
         background-size: cover;
     }
     /* First image (Logo. Full height) */
-    .bgimg-1 {
+    .bgimg-1 {	
         background-image: url('https://raw.githubusercontent.com/ErnestoAntelo/Sismos/main/image/Superficie_final.jpg');
         min-height: 100%;
         display: flex;
@@ -103,6 +106,66 @@
             font-size: 24px; /* Fijar un tamaño de fuente estándar para pantallas grandes */
         }
     }
+	
+    /* Estilos para la sección del gráfico de flujo diario */
+    .chart-section {
+        background-color: white; /* Fondo blanco */
+        text-align: center; /* Centrar el texto y la gráfica */
+        padding: 20px; /* Espaciado alrededor del contenido */
+    }	
+	
+    /* Estilos para la sección de la gráfica con fondo blanco */
+    #dailyFlowChart {
+        background-color: white; /* Establece el fondo a blanco */
+        padding: 20px; /* Agrega algo de padding alrededor del contenido */
+        text-align: center; /* Centra el título y la gráfica */
+    }
+
+    /* Ajustes para la gráfica */
+    canvas {
+        max-width: 100%; /* Asegura que la gráfica no sea más ancha que su contenedor */
+        height: auto; /* Mantiene la proporción de la gráfica */
+    }
+
+    /* Estilo para el menú desplegable */
+    .day-selector {
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    select {
+        padding: 10px;
+        margin-top: 20px;
+    }
+	    /* Estilos adicionales para la sección del gráfico */
+    .chart-section {
+        background-color: white;
+        text-align: center;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .day-selector {
+        width: 100%;
+        max-width: 300px; /* Ajusta este valor según tus necesidades */
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #daySelect {
+        width: 100%;
+        padding: 10px;
+    }
+
+    #dailyFlowChart {
+        max-width: 100%;
+        height: auto;
+    }
+
 </style>
 
 </head>
@@ -133,8 +196,20 @@
 <!-- First Parallax Image with Logo Text -->
 <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
   <div class="w3-display-middle" style="white-space:nowrap;">
-    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">SIMULADOR <span class="w3-hide-small">DE</span> FACTIBILIDAD</span>
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">GRÁFICOS <span class="w3-hide-small">DE</span> FLUJO</span>
   </div>
+</div>
+
+<!-- Sección de la Gráfica de Flujo Diario con Fondo Blanco -->
+<div class="chart-section" id="dailyFlow">
+    <h2>Gráfico de Flujo Diario</h2>
+    <label for="daySelect">Seleccione el día:</label>
+    <select id="daySelect" onchange="updateChartData(this.value)">
+        <option value="monday">Lunes</option>
+        <option value="tuesday">Martes</option>
+        <!-- Agrega aquí más días si es necesario -->
+    </select>
+    <canvas id="dailyFlowChart" width="800" height="400"></canvas>
 </div>
 
 <!-- Footer -->
@@ -187,6 +262,176 @@ function toggleFunction() {
     // Redirige a la página principal
     window.location.href = 'https://ernestoantelo.github.io/Sismos';
   }
+  
+const timeLabels = [
+    '6:00', '6:15', '6:30', '6:45',
+    '7:00', '7:15', '7:30', '7:45',
+    '8:00', '8:15', '8:30', '8:45',
+    '9:00', '9:15', '9:30', '9:45',
+    '10:00', '10:15', '10:30', '10:45',
+    '11:00', '11:15', '11:30', '11:45',
+    '12:00', '12:15', '12:30', '12:45',
+    '13:00', '13:15', '13:30', '13:45',
+    '14:00', '14:15', '14:30', '14:45',
+    '15:00', '15:15', '15:30', '15:45',
+    '16:00', '16:15', '16:30', '16:45',
+    '17:00', '17:15', '17:30', '17:45',
+    '18:00', '18:15', '18:30', '18:45',
+    '19:00', '19:15', '19:30', '19:45',
+    '20:00', '20:15', '20:30', '20:45',
+    '21:00', '21:15', '21:30', '21:45',
+    '22:00', '22:15', '22:30', '22:45',
+    '23:00', '23:15', '23:30', '23:45',
+    '0:00'
+];
+
+const entradaPrincipalData = [
+    500, 700, 900, 1200, 1500, 1800, 2000, 2200, 2500, 2700, 3000, 3200, 3500, 3700, 4000, 4200, 4500, 4700, 5000, 5200, 5500, 5700, 6000, 6200, 6500, 6700, 7000, 7200, 7500, 7700, 8000, 8200, 8500, 8700, 9000, 9200, 9500, 9700, 10000, 10200, 10500, 10700, 11000, 11200, 11500, 11700, 12000, 12200, 12500, 4900, 4800, 4700, 4600, 4500, 4400, 4300, 4200, 4100, 4000, 3900, 3800, 3700, 3600, 3500, 3400, 3300, 3200, 3100, 3000, 2900, 2800, 2700, 2600
+];
+
+const plantaMenos1Data = [
+    300, 400, 500, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200, 4400, 4600, 4800, 5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8800, 9000, 9200, 9400, 9600, 2450, 2400, 2350, 2300, 2250, 2200, 2150, 2100, 2050, 2000, 1950, 1900, 1850, 1800, 1750, 1700, 1650, 1600, 1550, 1500, 1450, 1400, 1350, 1300
+];
+
+const plantaMenos2Data = [
+    200, 300, 400, 500, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3200, 3400, 3600, 3800, 4000, 4200, 4400, 4600, 4800, 5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000, 7200, 7400, 7600, 7800, 8000, 8200, 8400, 8600, 8800, 9000, 9200, 9400, 2400, 2350, 2300, 2250, 2200, 2150, 2100, 2050, 2000, 1950, 1900, 1850, 1800, 1750, 1700, 1650, 1600, 1550, 1500, 1450, 1400, 1350, 1250
+];
+
+const plantaMenos3Data = [
+    150, 200, 250, 300, 350, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700, 1200, 1175, 1150, 1125, 1100, 1075, 1050, 1025, 1000, 975, 950, 925, 900, 875, 850, 825, 800, 775, 750, 725, 700, 675, 650, 625
+];
+
+// Datos del martes para cada planta
+const entradaPrincipalDataMartes = [
+    480, 680, 880, 1150, 1450, 1750, 1950, 2150, 2450, 2650, 2950, 3150, 3450, 
+    3650, 3950, 4150, 4450, 4650, 4950, 5150, 5450, 5650, 5950, 6150, 6450, 6650, 
+    6950, 7150, 7450, 7650, 7950, 8150, 8450, 8650, 8950, 9150, 9450, 9650, 9950, 
+    10150, 10450, 10650, 10950, 11150, 11450, 11650, 11950, 12150, 12450, 4700, 
+    4600, 4500, 4400, 4300, 4200, 4100, 4000, 3900, 3800, 3700, 3600, 3500, 3400, 
+    3300, 3200, 3100, 3000, 2900, 2800, 2700, 2600, 2500
+];
+
+const plantaMenos1DataMartes = [
+    280, 380, 480, 580, 780, 980, 1180, 1380, 1580, 1780, 1980, 2180, 2380, 2580, 
+    2780, 2980, 3180, 3380, 3580, 3780, 3980, 4180, 4380, 4580, 4780, 4980, 5180, 
+    5380, 5580, 5780, 5980, 6180, 6380, 6580, 6780, 6980, 7180, 7380, 7580, 7780, 
+    7980, 8180, 8380, 8580, 8780, 8980, 9180, 9380, 9580, 2350, 2300, 2250, 2200, 
+    2150, 2100, 2050, 2000, 1950, 1900, 1850, 1800, 1750, 1700, 1650, 1600, 1550, 
+    1500, 1450, 1400, 1350, 1300
+];
+
+const plantaMenos2DataMartes = [
+    180, 280, 380, 480, 580, 780, 980, 1180, 1380, 1580, 1780, 1980, 2180, 2380, 
+    2580, 2780, 2980, 3180, 3380, 3580, 3780, 3980, 4180, 4380, 4580, 4780, 4980, 
+    5180, 5380, 5580, 5780, 5980, 6180, 6380, 6580, 6780, 6980, 7180, 7380, 7580, 
+    7780, 7980, 8180, 8380, 8580, 8780, 8980, 9180, 9380, 2300, 2250, 2200, 2150, 
+    2100, 2050, 2000, 1950, 1900, 1850, 1800, 1750, 1700, 1650, 1600, 1550, 1500, 
+    1450, 1400, 1350, 1250
+];
+
+const plantaMenos3DataMartes = [
+    130, 180, 230, 280, 330, 380, 480, 580, 680, 780, 880, 980, 1080, 1180, 1280, 
+    1380, 1480, 1580, 1680, 1780, 1880, 1980, 2080, 2180, 2280, 2380, 2480, 2580, 
+    2680, 2780, 2880, 2980, 3080, 3180, 3280, 3380, 3480, 3580, 3680, 3780, 3880, 
+    3980, 4080, 4180, 4280, 4380, 4480, 4580, 4680, 1150, 1125, 1100, 1075, 1050, 
+    1025, 1000, 975, 950, 925, 900, 875, 850, 825, 800, 775, 750, 725, 700, 675, 
+    650, 625, 600
+];
+	
+    let dailyFlowChart;
+
+    // Función para actualizar los datos del gráfico
+    function updateChartData(day) {
+        let data;
+        switch (day) {
+            case 'monday':
+                data = {
+                    entradaPrincipal: entradaPrincipalData,
+                    plantaMenos1: plantaMenos1Data,
+                    plantaMenos2: plantaMenos2Data,
+                    plantaMenos3: plantaMenos3Data
+                };
+                break;
+            case 'tuesday':
+                data = {
+                    entradaPrincipal: entradaPrincipalDataMartes,
+                    plantaMenos1: plantaMenos1DataMartes,
+                    plantaMenos2: plantaMenos2DataMartes,
+                    plantaMenos3: plantaMenos3DataMartes
+                };
+                break;
+            // Agregar casos adicionales para otros días si es necesario
+        }
+        updateChart(data);
+    }
+
+    // Función para actualizar el gráfico
+    function updateChart(data) {
+        dailyFlowChart.data.datasets[0].data = data.entradaPrincipal;
+        dailyFlowChart.data.datasets[1].data = data.plantaMenos1;
+        dailyFlowChart.data.datasets[2].data = data.plantaMenos2;
+        dailyFlowChart.data.datasets[3].data = data.plantaMenos3;
+        dailyFlowChart.update();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const config = {
+            type: 'line',
+            data: {
+                labels: timeLabels,
+                datasets: [
+                    {
+                        label: 'Entrada Principal',
+                        data: entradaPrincipalData,
+                        fill: false,
+                        borderColor: 'rgb(255, 99, 132)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Planta Menos 1',
+                        data: plantaMenos1Data,
+                        fill: false,
+                        borderColor: 'rgb(54, 162, 235)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Planta Menos 2',
+                        data: plantaMenos2Data,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Planta Menos 3',
+                        data: plantaMenos3Data,
+                        fill: false,
+                        borderColor: 'rgb(153, 102, 255)',
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        dailyFlowChart = new Chart(
+            document.getElementById('dailyFlowChart'),
+            config
+        );
+
+        // Inicializar con los datos del lunes
+        updateChartData('monday');
+    });
+
+    document.getElementById('daySelect').addEventListener('change', function() {
+        updateChartData(this.value);
+    });
+
 </script>
 
 </body>
